@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Plan Budget — House · Living · Wedding</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#181f27; --panel2:#1f2832; --line:#2c3743;
+    --txt:#e6edf3; --dim:#8b9bab; --accent:#4d9fff; --accent2:#6ee7b7;
+    --warn:#fbbf24; --bad:#f87171; --good:#34d399; --wed:#f0929c;
+    --r:10px; --fs:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:var(--fs)/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#141b23,#0f1419)}
+  h1{font-size:18px;margin:0;font-weight:650;letter-spacing:-.2px}
+  h1 span{color:var(--dim);font-weight:400}
+  .btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    padding:7px 13px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.p{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
+  .btn.p:hover{opacity:.88;color:#04121f}
+  .spacer{flex:1}
+  nav{display:flex;gap:2px;padding:0 24px;border-bottom:1px solid var(--line);
+    overflow-x:auto;background:#141b23}
+  nav button{background:none;border:none;color:var(--dim);padding:12px 16px;cursor:pointer;
+    font-size:13.5px;font-weight:550;border-bottom:2px solid transparent;white-space:nowrap}
+  nav button:hover{color:var(--txt)}
+  nav button.on{color:var(--accent);border-bottom-color:var(--accent)}
+  main{padding:24px;max-width:1400px;margin:0 auto}
+  .view{display:none} .view.on{display:block}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .card h2{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--dim);
+    margin:0 0 14px;font-weight:650}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+  .kpi .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);font-weight:600}
+  .kpi .val{font-size:27px;font-weight:680;margin-top:6px;letter-spacing:-.7px;
+    font-variant-numeric:tabular-nums}
+  .kpi .sub{font-size:12px;color:var(--dim);margin-top:4px}
+  .kpi.accent{border-left:3px solid var(--accent)}
+  .kpi.wed{border-left:3px solid var(--wed)}
+  .kpi.good{border-left:3px solid var(--good)}
+  .kpi.bad{border-left:3px solid var(--bad)}
+  label.f{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px}
+  label.f .t{flex:1;color:var(--dim)}
+  label.f .t b{color:var(--txt);font-weight:550;display:block}
+  label.f .t i{font-style:normal;font-size:11.5px;color:#6b7b8b;display:block;line-height:1.35}
+  input[type=number],input[type=date],input[type=text],select{
+    background:#0d1319;border:1px solid var(--line);color:var(--txt);border-radius:6px;
+    padding:6px 9px;font:inherit;font-size:13px;width:120px;text-align:right;
+    font-variant-numeric:tabular-nums}
+  input[type=text]{text-align:left}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  input[type=range]{width:100%;accent-color:var(--accent);margin:2px 0 0}
+  .rangewrap{padding:8px 0 4px}
+  .rangewrap .top{display:flex;justify-content:space-between;font-size:13px;align-items:baseline}
+  .rangewrap .top b{font-weight:550}
+  .rangewrap .top span{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:640;font-size:15px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+    padding:8px 8px;border-bottom:1px solid var(--line);font-weight:650;white-space:nowrap}
+  td{padding:5px 8px;border-bottom:1px solid #222b35;font-variant-numeric:tabular-nums}
+  td.n,th.n{text-align:right}
+  tr:hover td{background:#1c242e}
+  tfoot td{font-weight:650;border-top:2px solid var(--line);border-bottom:none;padding-top:10px}
+  td input{width:100%;min-width:70px;background:transparent;border:1px solid transparent;padding:3px 5px}
+  td input:hover{border-color:var(--line)}
+  td input:focus{background:#0d1319;border-color:var(--accent)}
+  .cat{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+    font-weight:650;padding-top:14px}
+  .pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:640}
+  .pill.g{background:rgba(52,211,153,.15);color:var(--good)}
+  .pill.w{background:rgba(251,191,36,.15);color:var(--warn)}
+  .pill.b{background:rgba(248,113,113,.15);color:var(--bad)}
+  .bar{height:7px;background:#0d1319;border-radius:99px;overflow:hidden;margin-top:7px}
+  .bar i{display:block;height:100%;border-radius:99px;transition:width .25s}
+  .note{font-size:12px;color:var(--dim);line-height:1.55}
+  .note b{color:var(--txt)}
+  svg text{font-family:inherit}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:10px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+  .del{color:#5b6b7b;cursor:pointer;font-size:15px;line-height:1;padding:0 4px}
+  .del:hover{color:var(--bad)}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--accent);
+    color:#04121f;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;
+    opacity:0;pointer-events:none;transition:opacity .25s;z-index:99}
+  .toast.on{opacity:1}
+  hr{border:none;border-top:1px solid var(--line);margin:16px 0}
+  .scroll{overflow-x:auto}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(6,10,14,.72);z-index:80;
+    align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+  .overlay.on{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;
+    max-width:640px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+  .mhead{display:flex;align-items:center;margin-bottom:6px}
+  .mhead h3{margin:0;font-size:17px;font-weight:650;flex:1}
+  .mhead .x{color:var(--dim);cursor:pointer;font-size:24px;line-height:1;padding:0 4px}
+  .mhead .x:hover{color:var(--txt)}
+  .mrow{margin-top:18px}
+  .mlbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);
+    font-weight:650;margin-bottom:7px}
+  .mlbl span{text-transform:none;letter-spacing:0;font-weight:400;color:#6b7b8b}
+  .mflex{display:flex;gap:8px}
+  .mflex input{flex:1;width:auto;text-align:left;font-size:12px;font-family:ui-monospace,
+    SFMono-Regular,Menlo,Consolas,monospace;padding:8px 10px}
+  .mrow .note{margin-top:6px}
+  .ok{color:var(--good)} .bad{color:var(--bad)}
+  @media print{body{background:#fff;color:#000}nav,header .btn,.overlay{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Life Plan Budget <span>· house · living · wedding</span></h1>
+  <div class="spacer"></div>
+  <button class="btn" onclick="save()">Save to file</button>
+  <button class="btn" onclick="document.getElementById('loader').click()">Load file</button>
+  <input type="file" id="loader" accept=".json" style="display:none" onchange="load(event)">
+  <button class="btn" onclick="window.print()">Print</button>
+  <button class="btn" onclick="reset()">Reset</button>
+  <button class="btn p" onclick="openShare()">Share</button>
+</header>
+
+<div class="overlay" id="share-overlay" onclick="if(event.target===this)closeShare()">
+  <div class="modal">
+    <div class="mhead">
+      <h3>Share this scenario</h3>
+      <span class="x" onclick="closeShare()">&times;</span>
+    </div>
+
+    <p class="note">Your numbers travel inside the link — nothing is uploaded anywhere, and there is
+    no account to create. Only what you have changed from the defaults gets encoded, so the code
+    stays short.</p>
+
+    <div class="mrow">
+      <div class="mlbl">1 · Share link <span id="share-len"></span></div>
+      <div class="mflex">
+        <input type="text" id="share-url" readonly onclick="this.select()">
+        <button class="btn p" onclick="copyFrom('share-url')">Copy</button>
+      </div>
+      <div class="note" id="share-hint"></div>
+    </div>
+
+    <div class="mrow">
+      <div class="mlbl">2 · Scenario code — works even without hosting</div>
+      <div class="mflex">
+        <input type="text" id="share-code" readonly onclick="this.select()">
+        <button class="btn p" onclick="copyFrom('share-code')">Copy</button>
+      </div>
+      <div class="note">Send this code to your partner. They open their own copy of this file,
+      click Share, and paste it into the box below. Same numbers, both machines.</div>
+    </div>
+
+    <div class="mrow">
+      <div class="mlbl">3 · Load someone else's code</div>
+      <div class="mflex">
+        <input type="text" id="paste-code" placeholder="paste a scenario code or a full link here">
+        <button class="btn" onclick="applyPasted()">Apply</button>
+      </div>
+      <div class="note" id="paste-msg"></div>
+    </div>
+
+    <hr>
+    <p class="note"><b>Want a real bookmarkable URL?</b> This is a single self-contained file, so
+    dropping it on any free static host — Cloudflare Pages, GitHub Pages, Netlify — gives you a
+    permanent address that works on every device. Ask me and I'll write the steps.</p>
+    <p class="note"><b>For editing together at the same time</b>, use the spreadsheet on Google
+    Sheets instead. This app is the scenario explorer; the sheet is the shared record.</p>
+  </div>
+</div>
+
+<nav id="nav"></nav>
+<main>
+
+<!-- ══════════════════════ DASHBOARD ══════════════════════ -->
+<section class="view on" id="v-dash">
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="kpi accent"><div class="lbl">Cash to close</div><div class="val" id="k-cash">—</div><div class="sub" id="k-cash-s">—</div></div>
+    <div class="kpi accent"><div class="lbl">Monthly housing</div><div class="val" id="k-piti">—</div><div class="sub" id="k-piti-s">—</div></div>
+    <div class="kpi wed"><div class="lbl">Wedding (your share)</div><div class="val" id="k-wed">—</div><div class="sub" id="k-wed-s">—</div></div>
+    <div class="kpi" id="k-surp-card"><div class="lbl">Monthly surplus</div><div class="val" id="k-surp">—</div><div class="sub" id="k-surp-s">—</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>The gap</h2>
+      <div id="gap-body"></div>
+    </div>
+    <div class="card">
+      <h2>Verdict</h2>
+      <table><tbody id="verdict"></tbody></table>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h2>Where the money goes each month</h2>
+      <div id="chart-spend"></div>
+    </div>
+    <div class="card">
+      <h2>Savings balance over time</h2>
+      <div id="chart-savings"></div>
+      <div class="legend">
+        <span><i style="background:var(--accent2)"></i>Projected balance</span>
+        <span><i style="background:var(--wed)"></i>Wedding</span>
+        <span><i style="background:var(--accent)"></i>Home purchase</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Stress tests — what breaks this plan</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Scenario</th><th class="n">Monthly impact</th><th class="n">Surplus after</th><th>Survives?</th></tr></thead>
+      <tbody id="stress"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ HOUSE ══════════════════════ -->
+<section class="view" id="v-house">
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Purchase levers — drag to explore</h2>
+      <div id="house-sliders"></div>
+    </div>
+    <div class="card">
+      <h2>Costs & assumptions</h2>
+      <div id="house-inputs"></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Cash required at closing</h2>
+      <table><tbody id="cash-tbl"></tbody></table>
+    </div>
+    <div class="card">
+      <h2>Monthly payment breakdown</h2>
+      <table><tbody id="piti-tbl"></tbody></table>
+      <div id="chart-piti" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Loan lifetime</h2>
+      <table><tbody id="loan-tbl"></tbody></table>
+    </div>
+    <div class="card">
+      <h2>Lender qualification</h2>
+      <table><tbody id="ratio-tbl"></tbody></table>
+      <hr>
+      <p class="note">Front-end = housing payment ÷ <b>gross</b> monthly income (guideline 28%).
+      Back-end = housing + all other debt ÷ gross income (guideline 36%, stretchable to 43–50%
+      with strong credit and reserves). These are the ratios an underwriter actually runs.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>Loan balance & equity over 30 years</h2>
+    <div id="chart-amort"></div>
+    <div class="legend">
+      <span><i style="background:var(--accent)"></i>Remaining balance</span>
+      <span><i style="background:var(--accent2)"></i>Equity built</span>
+      <span><i style="background:var(--warn)"></i>PMI active</span>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h2>Rate sensitivity</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>Rate</th><th class="n">Monthly P&amp;I</th><th class="n">vs. base</th><th class="n">Lifetime interest</th></tr></thead>
+        <tbody id="rate-tbl"></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h2>Price sensitivity <span class="note">(at current rate &amp; down payment %)</span></h2>
+      <div class="scroll"><table>
+        <thead><tr><th>Home price</th><th class="n">Cash to close</th><th class="n">Monthly PITI</th><th>Front-end</th></tr></thead>
+        <tbody id="price-tbl"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Amortization — first 24 months, then annual</h2>
+    <div class="scroll" style="max-height:420px"><table>
+      <thead><tr><th>#</th><th>Date</th><th class="n">Balance</th><th class="n">P&amp;I</th>
+      <th class="n">Interest</th><th class="n">Principal</th><th class="n">PMI</th>
+      <th class="n">Cum. interest</th><th class="n">LTV</th></tr></thead>
+      <tbody id="amort-tbl"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ LIVING ══════════════════════ -->
+<section class="view" id="v-living">
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="kpi"><div class="lbl">Net monthly income</div><div class="val" id="l-inc">—</div></div>
+    <div class="kpi"><div class="lbl">Total spending</div><div class="val" id="l-spend">—</div><div class="sub" id="l-spend-s">—</div></div>
+    <div class="kpi" id="l-surp-card"><div class="lbl">Surplus</div><div class="val" id="l-surp">—</div><div class="sub" id="l-surp-s">—</div></div>
+    <div class="kpi"><div class="lbl">Housing share of net</div><div class="val" id="l-hshare">—</div><div class="sub">Under 30% is comfortable</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Income</h2>
+      <div id="income-inputs"></div>
+    </div>
+    <div class="card">
+      <h2>Category rollup</h2>
+      <div id="rollup"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Monthly line items <span class="note">— housing rows are calculated; everything else is editable</span></h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Category</th><th>Line item</th><th class="n">Monthly</th><th class="n">Annual</th>
+      <th class="n">% of net</th><th></th></tr></thead>
+      <tbody id="lc-tbl"></tbody>
+      <tfoot id="lc-foot"></tfoot>
+    </table></div>
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input type="text" id="lc-new-cat" placeholder="Category" style="width:130px">
+      <input type="text" id="lc-new-item" placeholder="Line item" style="width:190px">
+      <input type="number" id="lc-new-amt" placeholder="0" style="width:90px">
+      <button class="btn" onclick="addLC()">+ Add line</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WEDDING ══════════════════════ -->
+<section class="view" id="v-wedding">
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="kpi wed"><div class="lbl">Budget ceiling</div><div class="val" id="w-ceil">—</div></div>
+    <div class="kpi"><div class="lbl">Planned / contracted</div><div class="val" id="w-plan">—</div><div class="sub" id="w-plan-s">—</div></div>
+    <div class="kpi"><div class="lbl">Paid to date</div><div class="val" id="w-paid">—</div><div class="sub" id="w-paid-s">—</div></div>
+    <div class="kpi" id="w-save-card"><div class="lbl">Save per month</div><div class="val" id="w-save">—</div><div class="sub" id="w-save-s">—</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Wedding parameters</h2>
+      <div id="wed-inputs"></div>
+      <div class="bar" style="margin-top:14px"><i id="w-bar"></i></div>
+      <div class="note" id="w-bar-txt" style="margin-top:7px"></div>
+    </div>
+    <div class="card">
+      <h2>Cost per guest — the biggest lever</h2>
+      <div id="chart-guest"></div>
+      <p class="note" style="margin-top:10px">Catering, bar, rentals and favors all scale with the
+      headcount. Venue, photo/video, music and attire mostly don't. Roughly
+      <b id="w-var-share">—</b> of a typical budget is headcount-driven, which is why cutting the
+      guest list beats haggling with vendors.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Vendor tracker</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Category</th><th>Vendor / notes</th><th class="n">Estimate</th>
+      <th class="n">Contracted</th><th class="n">Paid</th><th class="n">Owed</th>
+      <th>Due</th><th>Status</th><th></th></tr></thead>
+      <tbody id="wed-tbl"></tbody>
+      <tfoot id="wed-foot"></tfoot>
+    </table></div>
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input type="text" id="w-new-cat" placeholder="Category" style="width:200px">
+      <input type="number" id="w-new-est" placeholder="Estimate" style="width:100px">
+      <button class="btn" onclick="addWed()">+ Add vendor line</button>
+      <span class="note" style="margin-left:auto">Estimates are pre-filled from The Knot's 2026 national averages — overwrite with real quotes.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TIMELINE ══════════════════════ -->
+<section class="view" id="v-timeline">
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <h2>Savings inputs</h2>
+      <div id="sav-inputs"></div>
+    </div>
+    <div class="card">
+      <h2>Feasibility</h2>
+      <table><tbody id="feas-tbl"></tbody></table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>Cash balance, next 60 months</h2>
+    <div id="chart-timeline"></div>
+  </div>
+
+  <div class="card">
+    <h2>Month by month</h2>
+    <div class="scroll" style="max-height:460px"><table>
+      <thead><tr><th>#</th><th>Month</th><th class="n">Opening</th><th class="n">Contribution</th>
+      <th class="n">Interest</th><th class="n">Wedding out</th><th class="n">House out</th>
+      <th class="n">Closing</th><th></th></tr></thead>
+      <tbody id="tl-tbl"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ NOTES ══════════════════════ -->
+<section class="view" id="v-notes">
+  <div class="card">
+    <h2>Sources &amp; assumptions</h2>
+    <ul class="note" style="line-height:1.85;padding-left:20px">
+      <li>Default mortgage rate <b>6.66%</b> — Freddie Mac PMMS 30-year fixed average, week of 07/30/2026.</li>
+      <li>Default wedding budget <b>$34,200</b> and <b>117-guest</b> average — The Knot 2026 Real Weddings Study (surveyed 10,474 US couples married in 2025). The <i>median</i> is meaningfully lower than the mean, so treat $34.2k as an upper-middle benchmark, not a target.</li>
+      <li>Wedding category percentages are national-average allocations, not quotes. Replace every line with a real number as you get it.</li>
+      <li>Property tax rate, insurance, and HOA are inputs with no meaningful national default — look up your specific county and get an actual insurance quote.</li>
+      <li>The model holds property taxes and insurance <b>flat</b>. In reality both trend up roughly 2–4%/yr, and insurance has risen much faster than that in several states. The stress-test panel covers this.</li>
+      <li>No home-price appreciation is assumed, so PMI drop-off is driven by principal paydown alone. That is deliberately conservative — appreciation or an appraisal can remove PMI sooner.</li>
+      <li>Closing costs default to <b>3%</b> of purchase price. Real range is roughly 2–5% depending on state, loan type, and whether you buy points.</li>
+      <li>The effective tax rate input should bundle federal, state, FICA, 401(k), and health premiums. Easiest way to get it right: take a pay stub and compute 1 − (net pay ÷ gross pay).</li>
+    </ul>
+    <hr>
+    <h2>How to use this</h2>
+    <ol class="note" style="line-height:1.85;padding-left:20px">
+      <li>Fill in the <b>Living</b> tab income section first — every ratio depends on it.</li>
+      <li>On <b>House</b>, drag price and down payment until the front-end ratio and monthly surplus both look survivable. That's your real budget, not what a lender pre-approves you for.</li>
+      <li>Replace living-cost placeholders with three months of your actual statements. Placeholder budgets are always too optimistic.</li>
+      <li>On <b>Wedding</b>, set the ceiling first, then let the tracker tell you when quotes push you past it.</li>
+      <li>Check <b>Timeline</b> for a shortfall. If the line dips below zero, one of the two dates has to move.</li>
+      <li><b>Save to file</b> writes a .json snapshot. Keep it next to the spreadsheet; load it to pick up where you left off.</li>
+    </ol>
+    <hr>
+    <h2>Getting your numbers onto another device, or to your partner</h2>
+    <p class="note">Click <b>Share</b> in the top right. Everything you have changed is packed into a
+    short code, and the address bar keeps it up to date as you edit — so bookmarking the page
+    bookmarks your scenario.</p>
+    <ul class="note" style="line-height:1.85;padding-left:20px">
+      <li><b>Scenario code</b> — the option that works today, with no hosting. Copy it, text or email
+      it, and the other person pastes it into box 3 of their own copy of this file. They see your
+      exact numbers.</li>
+      <li><b>Share link</b> — the full URL with the code attached. If you are opening this file from
+      your hard drive the link only works on that machine, because the path points at your disk. Put
+      the file on any free static host (Cloudflare Pages, GitHub Pages, Netlify) and the link starts
+      working everywhere.</li>
+      <li><b>Nothing is uploaded.</b> There is no server, no account, and no database behind this
+      page. The code <i>is</i> your data, compressed into text. That also means a link posted
+      somewhere public exposes your income and savings, so treat it like a private document.</li>
+      <li><b>For editing at the same time</b>, use the spreadsheet on Google Sheets. Two people
+      typing into this app will overwrite each other, because each browser holds its own copy.</li>
+    </ul>
+    <hr>
+    <p class="note">This is a planning model, not financial advice. Confirm every figure with your
+    lender, insurer, and tax authority before committing to anything.</p>
+  </div>
+</section>
+
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ═══════════════════════ STATE ═══════════════════════ */
+const DEFAULTS = {
+  inc1:95000, inc2:75000, incOther:0, taxRate:0.26,
+  price:450000, dpPct:0.10, rate:0.0666, term:30,
+  ccPct:0.03, inspect:1500, moving:2500, furnish:8000,
+  buyDate:"2027-06-01",
+  taxRateProp:0.011, hoi:1800, hoa:0, pmiRate:0.0055, pmiLtv:0.80, maintPct:0.01,
+  wedDate:"2027-09-18", guests:120, wedBudget:34200, wedFamily:0,
+  balance:25000, contrib:2000, apy:0.04, efMonths:6, otherDebt:650,
+  living:[
+    ["Utilities","Electricity",145],["Utilities","Gas / heating",85],
+    ["Utilities","Water / sewer / trash",90],["Utilities","Internet",75],
+    ["Utilities","Cell phones",130],["Utilities","Lawn / snow / pest",60],
+    ["Food","Groceries",700],["Food","Restaurants / takeout",350],["Food","Coffee / incidentals",80],
+    ["Transport","Car payment(s)",450],["Transport","Auto insurance",165],["Transport","Fuel",220],
+    ["Transport","Maintenance / registration",90],["Transport","Parking / transit / tolls",40],
+    ["Health","Health insurance premium",0],["Health","Out-of-pocket medical / dental",120],
+    ["Health","Gym / fitness",70],
+    ["Debt","Student loans",200],["Debt","Credit cards above minimum",0],["Debt","Other loans",0],
+    ["Personal","Clothing",100],["Personal","Subscriptions / streaming",65],
+    ["Personal","Entertainment / hobbies",200],["Personal","Travel / vacation fund",300],
+    ["Personal","Gifts / holidays",100],["Personal","Pets",80],["Personal","Personal care",90],
+    ["Savings","Retirement beyond payroll 401k",300],["Savings","Emergency fund contribution",250],
+    ["Other","Misc / buffer",200]
+  ],
+  // [category, contracted, paid, dueDate, status, headcountDriven, allocation%]
+  // Allocations follow The Knot's 2026 national averages, normalized to total exactly 100%.
+  wedding:[
+    ["Venue (ceremony + reception)",0.180,0,0,"","Not started",false],
+    ["Catering (food)",0.150,0,0,"","Not started",true],
+    ["Bar / alcohol",0.050,0,0,"","Not started",true],
+    ["Photographer",0.065,0,0,"","Not started",false],
+    ["Videographer",0.045,0,0,"","Not started",false],
+    ["Band / DJ / music",0.055,0,0,"","Not started",false],
+    ["Florals & decor",0.055,0,0,"","Not started",true],
+    ["Wedding attire (dress + alterations)",0.040,0,0,"","Not started",false],
+    ["Attire (suit / tux)",0.010,0,0,"","Not started",false],
+    ["Hair & makeup",0.015,0,0,"","Not started",false],
+    ["Rings (bands only)",0.025,0,0,"","Not started",false],
+    ["Wedding planner / coordinator",0.035,0,0,"","Not started",false],
+    ["Rentals (tables, chairs, linens, tent)",0.030,0,0,"","Not started",true],
+    ["Cake / desserts",0.015,0,0,"","Not started",true],
+    ["Invitations & stationery",0.010,0,0,"","Not started",true],
+    ["Officiant",0.005,0,0,"","Not started",false],
+    ["Transportation (shuttle, getaway car)",0.015,0,0,"","Not started",true],
+    ["Rehearsal dinner",0.030,0,0,"","Not started",true],
+    ["Welcome party / after-party",0.015,0,0,"","Not started",true],
+    ["Favors & welcome bags",0.010,0,0,"","Not started",true],
+    ["Marriage license & legal",0.003,0,0,"","Not started",false],
+    ["Wedding party gifts",0.010,0,0,"","Not started",true],
+    ["Vendor meals & tips",0.015,0,0,"","Not started",true],
+    ["Engagement photos",0.007,0,0,"","Not started",false],
+    ["Honeymoon",0.060,0,0,"","Not started",false],
+    ["Contingency buffer",0.050,0,0,"","Not started",false]
+  ]
+};
+let S = JSON.parse(JSON.stringify(DEFAULTS));
+S.wedding = S.wedding.map(r => [r[0], null, r[2], r[3], r[4], r[5], r[6], r[1]]);
+// wedding row = [category, estimateOverride|null, contracted, paid, dueDate, status,
+//                headcountDriven, defaultPct, vendorNote]
+
+// Frozen baseline. Everything compares against this: share codes carry only the
+// difference from it, and Reset restores it.
+const BASE = JSON.parse(JSON.stringify(S));
+
+/* ═══════════════════════ FORMAT ═══════════════════════ */
+const $ = id => document.getElementById(id);
+const money = n => (n<0?"−":"") + "$" + Math.abs(Math.round(n)).toLocaleString();
+const money2 = n => (n<0?"−":"") + "$" + Math.abs(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct = (n,d=1) => (n*100).toFixed(d) + "%";
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmtMon = d => MON[d.getMonth()] + " " + String(d.getFullYear()).slice(2);
+const fmtDate = d => (d.getMonth()+1) + "/" + d.getDate() + "/" + String(d.getFullYear()).slice(2);
+const parseD = s => { const p = String(s).split("-"); return new Date(+p[0], +p[1]-1, +p[2]||1); };
+const monthsBetween = (a,b) => (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth());
+
+function pmt(rateMo, n, pv){
+  if (n<=0) return 0;
+  if (rateMo === 0) return pv/n;
+  return pv * rateMo / (1 - Math.pow(1+rateMo, -n));
+}
+
+/* ═══════════════════════ MODEL ═══════════════════════ */
+function model(over){
+  const s = Object.assign({}, S, over||{});
+  const m = {};
+  m.gross = s.inc1 + s.inc2 + s.incOther;
+  m.grossMo = m.gross/12;
+  m.netAnnual = m.gross * (1 - s.taxRate);
+  m.netMo = m.netAnnual/12;
+
+  m.down = s.price * s.dpPct;
+  m.loan = s.price - m.down;
+  m.closing = s.price * s.ccPct;
+  m.cash = m.down + m.closing + s.inspect + s.moving + s.furnish;
+
+  m.pi = pmt(s.rate/12, s.term*12, m.loan);
+  m.tax = s.price * s.taxRateProp / 12;
+  m.ins = s.hoi/12;
+  m.hoa = s.hoa;
+  m.pmi = (s.dpPct >= 1 - s.pmiLtv) ? 0 : m.loan * s.pmiRate / 12;
+  m.piti = m.pi + m.tax + m.ins + m.hoa + m.pmi;
+  m.pitiNoPmi = m.piti - m.pmi;
+  m.maint = s.price * s.maintPct / 12;
+  m.trueCost = m.piti + m.maint;
+
+  // amortization
+  const n = Math.round(s.term*12);
+  const rMo = s.rate/12;
+  let bal = m.loan, cum = 0, pmiMonths = 0, pmiTotal = 0;
+  const start = parseD(s.buyDate);
+  m.sched = [];
+  for (let i=1; i<=n && bal > 0.005; i++){
+    const interest = bal * rMo;
+    const pay = Math.min(bal + interest, m.pi);
+    const principal = pay - interest;
+    const ltv = s.price>0 ? bal/s.price : 0;
+    const pmiThis = (s.dpPct >= 1 - s.pmiLtv) ? 0 : (ltv > s.pmiLtv ? m.loan*s.pmiRate/12 : 0);
+    if (pmiThis>0){ pmiMonths++; pmiTotal += pmiThis; }
+    cum += interest;
+    const d = new Date(start.getFullYear(), start.getMonth()+i, 1);
+    m.sched.push({i, d, bal, pay, interest, principal, end:Math.max(0,bal-principal), pmi:pmiThis, cum, ltv});
+    bal = Math.max(0, bal - principal);
+  }
+  m.totalInterest = cum;
+  m.pmiMonths = pmiMonths;
+  m.pmiTotal = pmiTotal;
+  m.payoff = m.sched.length ? m.sched[m.sched.length-1].d : start;
+
+  m.frontEnd = m.grossMo>0 ? m.piti/m.grossMo : 0;
+  m.backEnd  = m.grossMo>0 ? (m.piti + s.otherDebt)/m.grossMo : 0;
+
+  // wedding
+  m.wedRows = s.wedding.map(r => {
+    const est = (r[1]===null || r[1]===undefined || r[1]==="") ? s.wedBudget*r[7] : +r[1];
+    const contracted = +r[2]||0, paid = +r[3]||0;
+    const basis = contracted>0 ? contracted : est;
+    return {cat:r[0], est, contracted, paid, owed:Math.max(0,basis-paid), due:r[4],
+            status:r[5], hc:r[6], basis};
+  });
+  m.wedEst = m.wedRows.reduce((a,r)=>a+r.est,0);
+  m.wedContracted = m.wedRows.reduce((a,r)=>a+r.contracted,0);
+  m.wedPlanned = m.wedRows.reduce((a,r)=>a+r.basis,0);
+  m.wedPaid = m.wedRows.reduce((a,r)=>a+r.paid,0);
+  m.wedOwed = m.wedRows.reduce((a,r)=>a+r.owed,0);
+  m.wedSelf = Math.max(0, s.wedBudget - s.wedFamily);
+  m.wedOver = m.wedPlanned - s.wedBudget;
+  m.wedHcShare = m.wedPlanned>0 ? m.wedRows.filter(r=>r.hc).reduce((a,r)=>a+r.basis,0)/m.wedPlanned : 0;
+  m.perGuest = s.guests>0 ? m.wedPlanned/s.guests : 0;
+  const today = new Date();
+  m.wedMonths = Math.max(0, monthsBetween(today, parseD(s.wedDate)));
+  m.wedMonthlySave = m.wedMonths>0 ? Math.max(0,(m.wedSelf - m.wedPaid)/m.wedMonths) : Math.max(0, m.wedSelf - m.wedPaid);
+
+  // living costs
+  m.housingLines = [
+    ["Housing","Mortgage P&I", m.pi],
+    ["Housing","Property taxes", m.tax],
+    ["Housing","Homeowners insurance", m.ins],
+    ["Housing","HOA dues", m.hoa],
+    ["Housing","PMI", m.pmi],
+    ["Housing","Maintenance reserve", m.maint]
+  ];
+  m.lcAll = m.housingLines.concat(s.living.map(r=>[r[0],r[1],+r[2]||0]));
+  m.spend = m.lcAll.reduce((a,r)=>a+r[2],0);
+  m.surplus = m.netMo - m.spend;
+  m.housingShare = m.netMo>0 ? m.trueCost/m.netMo : 0;
+  m.rollup = {};
+  m.lcAll.forEach(r => { m.rollup[r[0]] = (m.rollup[r[0]]||0) + r[2]; });
+
+  // savings timeline
+  const t0 = new Date(today.getFullYear(), today.getMonth(), 1);
+  const buy = parseD(s.buyDate), wed = parseD(s.wedDate);
+  const buyIdx = monthsBetween(t0, new Date(buy.getFullYear(), buy.getMonth(), 1));
+  const wedIdx = monthsBetween(t0, new Date(wed.getFullYear(), wed.getMonth(), 1));
+  let b = s.balance;
+  m.timeline = [];
+  for (let i=0; i<60; i++){
+    const d = new Date(t0.getFullYear(), t0.getMonth()+i, 1);
+    const open = b;
+    // pre-purchase you save `contrib`; after closing your surplus is what's left
+    const contrib = (i > buyIdx) ? Math.max(0, m.surplus) : s.contrib;
+    const interest = open * s.apy/12;
+    const wOut = (i === wedIdx) ? m.wedSelf : 0;
+    const hOut = (i === buyIdx) ? m.cash : 0;
+    const close = open + contrib + interest - wOut - hOut;
+    m.timeline.push({i:i+1, d, open, contrib, interest, wOut, hOut, close});
+    b = close;
+  }
+  m.minBal = Math.min.apply(null, m.timeline.map(t=>t.close));
+  m.shortfallMonths = m.timeline.filter(t=>t.close<0).length;
+  m.balBeforeClose = (buyIdx>0 && buyIdx<60) ? m.timeline[buyIdx-1].close : null;
+  m.closeSurplus = m.balBeforeClose===null ? null : m.balBeforeClose - m.cash;
+  const firstGoal = Math.min(buyIdx, wedIdx);
+  m.requiredMonthly = firstGoal>0 ? Math.max(0,(m.cash + m.wedSelf - s.balance)/firstGoal) : (m.cash+m.wedSelf-s.balance);
+  m.efTarget = m.spend * s.efMonths;
+  m.gap = Math.max(0, m.cash + m.wedSelf - s.balance);
+  return m;
+}
+
+/* ═══════════════════════ SVG CHARTS ═══════════════════════ */
+function svgEl(w,h){ return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="xMidYMid meet">`; }
+
+function barChart(el, rows, total){
+  const W=520, rowH=26, H=rows.length*rowH+10;
+  let s = svgEl(W,H);
+  const max = Math.max.apply(null, rows.map(r=>r[1])) || 1;
+  const LW = 160;
+  rows.forEach((r,i)=>{
+    const y = i*rowH+6;
+    const w = Math.max(1,(r[1]/max)*(W-LW-90));
+    s += `<text x="0" y="${y+13}" fill="#8b9bab" font-size="12">${r[0]}</text>`;
+    s += `<rect x="${LW}" y="${y+3}" width="${w}" height="14" rx="3" fill="${r[2]}" opacity="0.9"/>`;
+    s += `<text x="${LW+w+8}" y="${y+14}" fill="#e6edf3" font-size="11.5">${money(r[1])} <tspan fill="#6b7b8b">${total?pct(r[1]/total,0):""}</tspan></text>`;
+  });
+  s += "</svg>";
+  el.innerHTML = s;
+}
+
+function lineChart(el, series, markers, opts){
+  opts = opts||{};
+  const W=560, H=220, P={l:56,r:12,t:12,b:26};
+  const all = series.flatMap(s=>s.pts.map(p=>p.y));
+  let min = Math.min(0, Math.min.apply(null,all));
+  let max = Math.max.apply(null,all); if (max===min) max = min+1;
+  const n = series[0].pts.length;
+  const X = i => P.l + (i/(n-1))*(W-P.l-P.r);
+  const Y = v => P.t + (1-(v-min)/(max-min))*(H-P.t-P.b);
+  let s = svgEl(W,H);
+  // zero line + grid
+  for (let g=0; g<=4; g++){
+    const v = min + (max-min)*g/4, y = Y(v);
+    s += `<line x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}" stroke="#2c3743" stroke-width="1"/>`;
+    s += `<text x="${P.l-6}" y="${y+4}" fill="#6b7b8b" font-size="10" text-anchor="end">${money(v)}</text>`;
+  }
+  if (min<0) s += `<line x1="${P.l}" y1="${Y(0)}" x2="${W-P.r}" y2="${Y(0)}" stroke="#f87171" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+  (markers||[]).forEach(mk=>{
+    if (mk.i<0||mk.i>=n) return;
+    const x = X(mk.i);
+    s += `<line x1="${x}" y1="${P.t}" x2="${x}" y2="${H-P.b}" stroke="${mk.color}" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.8"/>`;
+    s += `<text x="${x+4}" y="${P.t+11}" fill="${mk.color}" font-size="10" font-weight="600">${mk.label}</text>`;
+  });
+  series.forEach(sr=>{
+    const d = sr.pts.map((p,i)=>(i?"L":"M")+X(i).toFixed(1)+","+Y(p.y).toFixed(1)).join(" ");
+    if (sr.fill) s += `<path d="${d} L${X(n-1)},${Y(Math.max(0,min))} L${X(0)},${Y(Math.max(0,min))} Z" fill="${sr.color}" opacity="0.13"/>`;
+    s += `<path d="${d}" fill="none" stroke="${sr.color}" stroke-width="2" stroke-linejoin="round"/>`;
+  });
+  // x labels
+  const step = Math.max(1, Math.floor(n/6));
+  for (let i=0; i<n; i+=step){
+    s += `<text x="${X(i)}" y="${H-8}" fill="#6b7b8b" font-size="10" text-anchor="middle">${opts.xfmt?opts.xfmt(i):i}</text>`;
+  }
+  s += "</svg>";
+  el.innerHTML = s;
+}
+
+function stackChart(el, segs){
+  const W=520,H=54, total = segs.reduce((a,s)=>a+s.v,0)||1;
+  let x=0, s = svgEl(W,H);
+  segs.forEach(g=>{
+    const w = (g.v/total)*W;
+    if (w>0){
+      s += `<rect x="${x}" y="0" width="${Math.max(0,w-1.5)}" height="20" rx="3" fill="${g.c}"/>`;
+      if (w>52) s += `<text x="${x+3}" y="34" fill="#8b9bab" font-size="10">${g.n}</text>`
+                  + `<text x="${x+3}" y="47" fill="#e6edf3" font-size="11" font-weight="600">${money(g.v)}</text>`;
+    }
+    x += w;
+  });
+  s += "</svg>";
+  el.innerHTML = s;
+}
+
+/* ═══════════════════════ INPUT BUILDERS ═══════════════════════ */
+function field(key, label, hint, type, opts){
+  opts = opts||{};
+  const v = S[key];
+  const val = type==="date" ? v : (opts.pct ? (v*100).toFixed(opts.dp||2) : v);
+  return `<label class="f"><span class="t"><b>${label}</b>${hint?`<i>${hint}</i>`:""}</span>
+    <input type="${type}" value="${val}" ${opts.step?`step="${opts.step}"`:""}
+      data-k="${key}" data-pct="${opts.pct?1:0}" data-type="${type}"
+      onchange="setField(this)">${opts.suffix?`<span class="note" style="width:14px">${opts.suffix}</span>`:""}</label>`;
+}
+function slider(key, label, min, max, step, fmt, opts){
+  opts = opts||{};
+  const v = S[key];
+  return `<div class="rangewrap"><div class="top"><b>${label}</b><span id="sv-${key}">${fmt(v)}</span></div>
+    <input type="range" min="${min}" max="${max}" step="${step}" value="${v}"
+      data-k="${key}" oninput="setSlider(this)"></div>`;
+}
+function setField(el){
+  let v = el.value;
+  if (el.dataset.type === "number"){
+    v = parseFloat(v); if (isNaN(v)) v = 0;
+    if (el.dataset.pct === "1") v = v/100;
+  }
+  S[el.dataset.k] = v;
+  render();
+}
+function setSlider(el){
+  S[el.dataset.k] = parseFloat(el.value);
+  render();
+}
+
+/* ═══════════════════════ RENDER ═══════════════════════ */
+const TABS = [["dash","Dashboard"],["house","House"],["living","Living Costs"],
+              ["wedding","Wedding"],["timeline","Timeline"],["notes","Notes & Sources"]];
+let active = "dash";
+function buildNav(){
+  $("nav").innerHTML = TABS.map(([id,l]) =>
+    `<button class="${id===active?"on":""}" onclick="go('${id}')">${l}</button>`).join("");
+}
+function go(id){
+  active = id;
+  TABS.forEach(([t]) => $("v-"+t).classList.toggle("on", t===id));
+  buildNav();
+  render();
+  window.scrollTo(0,0);
+}
+
+function tr(label, value, opts){
+  opts = opts||{};
+  return `<tr><td style="${opts.bold?"font-weight:650":"color:var(--dim)"}">${label}</td>
+    <td class="n" style="${opts.bold?"font-weight:650":""};color:${opts.color||"var(--txt)"}">${value}</td></tr>`;
+}
+function verdictRow(label, ok, detail){
+  return `<tr><td style="color:var(--dim)">${label}</td>
+    <td class="n"><span class="pill ${ok===true?"g":ok===false?"b":"w"}">${ok===true?"YES":ok===false?"NO":"CHECK"}</span></td>
+    <td class="n" style="color:var(--dim);font-size:12px">${detail||""}</td></tr>`;
+}
+
+function render(){
+  const m = model();
+  syncHash();
+
+  /* ---------- DASHBOARD ---------- */
+  if (active==="dash"){
+    $("k-cash").textContent = money(m.cash);
+    $("k-cash-s").textContent = pct(m.cash/Math.max(1,m.gross),0) + " of gross annual income";
+    $("k-piti").textContent = money(m.piti);
+    $("k-piti-s").textContent = money(m.trueCost) + " incl. maintenance · " + pct(m.frontEnd) + " of gross";
+    $("k-wed").textContent = money(m.wedSelf);
+    $("k-wed-s").textContent = money(m.perGuest) + "/guest · " + m.wedMonths + " months out";
+    $("k-surp").textContent = money(m.surplus);
+    $("k-surp").style.color = m.surplus>=500?"var(--good)":m.surplus>=0?"var(--warn)":"var(--bad)";
+    $("k-surp-s").textContent = m.surplus>=500?"Healthy cushion":m.surplus>=0?"Thin — little room for surprises":"Deficit — this plan does not work";
+    $("k-surp-card").className = "kpi " + (m.surplus>=500?"good":m.surplus>=0?"":"bad");
+
+    stackChart($("gap-body"), [
+      {n:"House cash", v:m.cash, c:"#4d9fff"},
+      {n:"Wedding", v:m.wedSelf, c:"#f0929c"}
+    ]);
+    $("gap-body").innerHTML += `
+      <table style="margin-top:10px">
+        ${tr("Combined cash goal", money(m.cash+m.wedSelf), {bold:true})}
+        ${tr("Current savings", money(S.balance))}
+        ${tr("Gap to close", money(m.gap), {bold:true, color:m.gap>0?"var(--warn)":"var(--good)"})}
+        ${tr("Months to the first of the two dates", Math.max(0,Math.min(monthsBetween(new Date(),parseD(S.buyDate)),monthsBetween(new Date(),parseD(S.wedDate)))))}
+        ${tr("Required monthly savings", money(m.requiredMonthly), {bold:true,
+            color: m.requiredMonthly<=S.contrib?"var(--good)":"var(--bad)"})}
+        ${tr("You are currently saving", money(S.contrib))}
+      </table>`;
+
+    $("verdict").innerHTML =
+      verdictRow("Cash covers both goals", m.shortfallMonths===0, m.shortfallMonths?m.shortfallMonths+" short months":"no shortfall") +
+      verdictRow("Front-end ratio ≤ 28%", m.frontEnd<=0.28, pct(m.frontEnd)) +
+      verdictRow("Back-end ratio ≤ 36%", m.backEnd<=0.36, pct(m.backEnd)) +
+      verdictRow("Budget balances after move-in", m.surplus>=0, money(m.surplus)+"/mo") +
+      verdictRow("Housing ≤ 30% of net income", m.housingShare<=0.30, pct(m.housingShare)) +
+      verdictRow("Emergency fund survives", m.minBal>=m.efTarget, "low pt "+money(m.minBal)+" vs "+money(m.efTarget)) +
+      verdictRow("Wedding within budget", m.wedOver<=0, m.wedOver>0?money(m.wedOver)+" over":money(-m.wedOver)+" under");
+
+    const order = ["Housing","Food","Transport","Utilities","Debt","Savings","Health","Personal","Other"];
+    const cols = {Housing:"#4d9fff",Food:"#6ee7b7",Transport:"#fbbf24",Utilities:"#a78bfa",
+                  Debt:"#f87171",Savings:"#34d399",Health:"#38bdf8",Personal:"#f0929c",Other:"#8b9bab"};
+    const rows = order.filter(c=>m.rollup[c]).map(c=>[c, m.rollup[c], cols[c]||"#8b9bab"])
+                      .sort((a,b)=>b[1]-a[1]);
+    barChart($("chart-spend"), rows, m.spend);
+
+    const buyIdx = m.timeline.findIndex(t=>t.hOut>0);
+    const wedIdx = m.timeline.findIndex(t=>t.wOut>0);
+    lineChart($("chart-savings"),
+      [{pts:m.timeline.map(t=>({y:t.close})), color:"#6ee7b7", fill:true}],
+      [{i:wedIdx, label:"Wedding", color:"#f0929c"},{i:buyIdx, label:"Close", color:"#4d9fff"}],
+      {xfmt:i=>fmtMon(m.timeline[i].d)});
+
+    const stress = [
+      ["Rate is 1.0% higher when you lock", pmt((S.rate+0.01)/12, S.term*12, m.loan) - m.pi],
+      ["Property taxes reassess 20% higher", S.price*S.taxRateProp*0.2/12],
+      ["Home insurance jumps 30%", S.hoi*0.3/12],
+      ["Partner income lost for 6 months", S.inc2*(1-S.taxRate)/12],
+      ["$12,000 roof, absorbed over 12 months", 1000],
+      ["All of the above at once", (pmt((S.rate+0.01)/12,S.term*12,m.loan)-m.pi) + S.price*S.taxRateProp*0.2/12 + S.hoi*0.3/12 + S.inc2*(1-S.taxRate)/12 + 1000]
+    ];
+    $("stress").innerHTML = stress.map(([lab,hit],i)=>{
+      const after = m.surplus - Math.abs(hit);
+      return `<tr><td style="${i===5?"font-weight:650":""}">${lab}</td>
+        <td class="n" style="color:var(--bad)">−${money(Math.abs(hit)).replace("$","$")}</td>
+        <td class="n" style="color:${after>=0?"var(--good)":"var(--bad)"}">${money(after)}</td>
+        <td><span class="pill ${after>=0?"g":"b"}">${after>=0?"Survives":"Breaks"}</span></td></tr>`;
+    }).join("");
+  }
+
+  /* ---------- HOUSE ---------- */
+  if (active==="house"){
+    $("house-sliders").innerHTML =
+      slider("price","Home price", 100000, 1500000, 5000, v=>money(v)) +
+      slider("dpPct","Down payment", 0, 0.5, 0.005, v=>pct(v,1)+"  ·  "+money(S.price*v)) +
+      slider("rate","Interest rate", 0.02, 0.12, 0.00125, v=>pct(v,3)) +
+      `<div class="rangewrap"><div class="top"><b>Loan term</b><span>${S.term} years</span></div>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          ${[15,20,30].map(t=>`<button class="btn ${S.term===t?"p":""}" style="flex:1" onclick="S.term=${t};render()">${t} yr</button>`).join("")}
+        </div></div>` +
+      `<hr><div class="note">Payment <b style="color:var(--accent);font-size:16px">${money2(m.piti)}</b>/mo to the lender ·
+       cash to close <b style="color:var(--accent);font-size:16px">${money(m.cash)}</b></div>`;
+    ["price","dpPct","rate"].forEach(k=>{ const e=$("sv-"+k); if(e) e.style.fontSize="13.5px"; });
+
+    $("house-inputs").innerHTML =
+      field("ccPct","Closing costs","% of purchase price · typically 2–5%","number",{pct:1,step:0.1,suffix:"%"}) +
+      field("inspect","Inspection / appraisal","Due diligence before you close","number") +
+      field("moving","Moving costs","","number") +
+      field("furnish","Furnishing + immediate repairs","The line most people forget","number") +
+      field("buyDate","Target purchase date","Drives the savings timeline","date") +
+      `<hr>` +
+      field("taxRateProp","Property tax rate","% of home value per year — look up your county","number",{pct:1,step:0.05,suffix:"%"}) +
+      field("hoi","Homeowners insurance","Per year","number") +
+      field("hoa","HOA dues","Per month","number") +
+      field("maintPct","Maintenance reserve","% of value per year · rule of thumb is 1%","number",{pct:1,step:0.1,suffix:"%"}) +
+      field("pmiRate","PMI rate","% of original loan per year · typical 0.3–1.5%","number",{pct:1,step:0.05,suffix:"%"}) +
+      field("otherDebt","Other monthly debt payments","Car, student loans, card minimums — lenders count these","number");
+
+    $("cash-tbl").innerHTML =
+      tr("Home price", money(S.price)) +
+      tr("Down payment (" + pct(S.dpPct) + ")", money(m.down)) +
+      tr("Loan amount", money(m.loan)) +
+      tr("Closing costs (" + pct(S.ccPct) + ")", money(m.closing)) +
+      tr("Inspection / appraisal", money(S.inspect)) +
+      tr("Moving", money(S.moving)) +
+      tr("Furnishing + repairs", money(S.furnish)) +
+      tr("TOTAL CASH TO CLOSE", money(m.cash), {bold:true, color:"var(--accent)"}) +
+      tr("As % of home price", pct(m.cash/Math.max(1,S.price)));
+
+    $("piti-tbl").innerHTML =
+      tr("Principal & interest", money2(m.pi)) +
+      tr("Property taxes", money2(m.tax)) +
+      tr("Homeowners insurance", money2(m.ins)) +
+      tr("HOA", money2(m.hoa)) +
+      tr("PMI", money2(m.pmi), {color: m.pmi>0?"var(--warn)":"var(--dim)"}) +
+      tr("TOTAL TO LENDER", money2(m.piti), {bold:true, color:"var(--accent)"}) +
+      tr("After PMI drops off", money2(m.pitiNoPmi)) +
+      tr("Maintenance reserve", money2(m.maint)) +
+      tr("TRUE COST OF OWNERSHIP", money2(m.trueCost), {bold:true});
+
+    stackChart($("chart-piti"), [
+      {n:"P&I", v:m.pi, c:"#4d9fff"},{n:"Tax", v:m.tax, c:"#fbbf24"},
+      {n:"Ins", v:m.ins, c:"#a78bfa"},{n:"HOA", v:m.hoa, c:"#38bdf8"},
+      {n:"PMI", v:m.pmi, c:"#f87171"},{n:"Maint", v:m.maint, c:"#6ee7b7"}
+    ]);
+
+    $("loan-tbl").innerHTML =
+      tr("Total interest over the loan", money(m.totalInterest), {color:"var(--warn)"}) +
+      tr("Total principal + interest", money(m.totalInterest + m.loan)) +
+      tr("Interest as % of loan", pct(m.loan>0?m.totalInterest/m.loan:0,0)) +
+      tr("Months of PMI", m.pmiMonths + (m.pmiMonths?" (" + (m.pmiMonths/12).toFixed(1) + " yrs)":"")) +
+      tr("Total PMI paid", money(m.pmiTotal), {color: m.pmiTotal>0?"var(--warn)":"var(--dim)"}) +
+      tr("PMI drops off", m.pmiMonths?fmtDate(m.sched[m.pmiMonths].d):"n/a — 20% down") +
+      tr("Payoff date", fmtDate(m.payoff), {bold:true});
+
+    const feOk = m.frontEnd<=0.28, feTight = m.frontEnd<=0.31;
+    const beOk = m.backEnd<=0.36, beTight = m.backEnd<=0.43;
+    $("ratio-tbl").innerHTML =
+      `<tr><td style="color:var(--dim)">Front-end ratio<div class="bar"><i style="width:${Math.min(100,m.frontEnd/0.28*100)}%;background:${feOk?"var(--good)":feTight?"var(--warn)":"var(--bad)"}"></i></div></td>
+        <td class="n" style="font-weight:650">${pct(m.frontEnd)}<br><span class="pill ${feOk?"g":feTight?"w":"b"}">${feOk?"OK":feTight?"Tight":"Over"}</span></td></tr>` +
+      `<tr><td style="color:var(--dim)">Back-end ratio<div class="bar"><i style="width:${Math.min(100,m.backEnd/0.36*100)}%;background:${beOk?"var(--good)":beTight?"var(--warn)":"var(--bad)"}"></i></div></td>
+        <td class="n" style="font-weight:650">${pct(m.backEnd)}<br><span class="pill ${beOk?"g":beTight?"w":"b"}">${beOk?"OK":beTight?"Tight":"Over"}</span></td></tr>` +
+      tr("Gross monthly income", money(m.grossMo)) +
+      tr("Max price at 28% front-end", money(maxPrice(0.28)), {bold:true, color:"var(--accent)"});
+
+    lineChart($("chart-amort"),
+      [{pts:m.sched.filter((_,i)=>i%3===0).map(r=>({y:r.bal})), color:"#4d9fff", fill:true},
+       {pts:m.sched.filter((_,i)=>i%3===0).map(r=>({y:S.price-r.bal})), color:"#6ee7b7"}],
+      m.pmiMonths?[{i:Math.floor(m.pmiMonths/3), label:"PMI off", color:"#fbbf24"}]:[],
+      {xfmt:i=>{const r=m.sched.filter((_,j)=>j%3===0)[i]; return r?"yr "+Math.round(r.i/12):"";}});
+
+    $("rate-tbl").innerHTML = [-0.01,-0.005,0,0.005,0.01,0.015].map(d=>{
+      const rr = S.rate+d, p = pmt(rr/12, S.term*12, m.loan);
+      return `<tr style="${d===0?"background:#1c242e;font-weight:650":""}">
+        <td>${pct(rr,3)}</td><td class="n">${money2(p)}</td>
+        <td class="n" style="color:${p>m.pi?"var(--bad)":p<m.pi?"var(--good)":"var(--dim)"}">${d===0?"—":(p>m.pi?"+":"−")+money(Math.abs(p-m.pi)).replace("$","$")}</td>
+        <td class="n">${money(p*S.term*12-m.loan)}</td></tr>`;
+    }).join("");
+
+    $("price-tbl").innerHTML = [-0.2,-0.1,0,0.1,0.2].map(d=>{
+      const p = Math.round(S.price*(1+d)/1000)*1000;
+      const mm = model({price:p});
+      return `<tr style="${d===0?"background:#1c242e;font-weight:650":""}">
+        <td>${money(p)}</td><td class="n">${money(mm.cash)}</td><td class="n">${money(mm.piti)}</td>
+        <td class="n"><span class="pill ${mm.frontEnd<=0.28?"g":mm.frontEnd<=0.31?"w":"b"}">${pct(mm.frontEnd)}</span></td></tr>`;
+    }).join("");
+
+    const show = m.sched.filter(r => r.i<=24 || r.i%12===0);
+    $("amort-tbl").innerHTML = show.map(r=>`<tr>
+      <td>${r.i}</td><td>${fmtDate(r.d)}</td><td class="n">${money(r.bal)}</td>
+      <td class="n">${money2(r.pay)}</td><td class="n" style="color:var(--warn)">${money2(r.interest)}</td>
+      <td class="n" style="color:var(--good)">${money2(r.principal)}</td>
+      <td class="n" style="color:${r.pmi>0?"var(--bad)":"var(--dim)"}">${r.pmi>0?money2(r.pmi):"—"}</td>
+      <td class="n">${money(r.cum)}</td><td class="n">${pct(r.ltv,0)}</td></tr>`).join("");
+  }
+
+  /* ---------- LIVING ---------- */
+  if (active==="living"){
+    $("l-inc").textContent = money(m.netMo);
+    $("l-spend").textContent = money(m.spend);
+    $("l-spend-s").textContent = money(m.spend*12) + " per year";
+    $("l-surp").textContent = money(m.surplus);
+    $("l-surp").style.color = m.surplus>=500?"var(--good)":m.surplus>=0?"var(--warn)":"var(--bad)";
+    $("l-surp-s").textContent = pct(m.netMo>0?m.surplus/m.netMo:0,0) + " of net income";
+    $("l-surp-card").className = "kpi " + (m.surplus>=500?"good":m.surplus>=0?"":"bad");
+    $("l-hshare").textContent = pct(m.housingShare);
+    $("l-hshare").style.color = m.housingShare<=0.30?"var(--good)":m.housingShare<=0.35?"var(--warn)":"var(--bad)";
+
+    $("income-inputs").innerHTML =
+      field("inc1","Your gross annual income","Base + expected bonus, before taxes","number") +
+      field("inc2","Partner gross annual income","Enter 0 if single-income","number") +
+      field("incOther","Other annual income","Rental, side work, dividends","number") +
+      field("taxRate","Effective tax + deduction rate","Fed + state + FICA + 401k + health. From a pay stub: 1 − (net ÷ gross)","number",{pct:1,step:0.5,suffix:"%"}) +
+      `<hr>` +
+      tr("Combined gross annual", money(m.gross), {bold:true}) +
+      tr("Combined net annual", money(m.netAnnual)) +
+      tr("Combined net monthly", money(m.netMo), {bold:true, color:"var(--accent)"});
+
+    const cols = {Housing:"#4d9fff",Food:"#6ee7b7",Transport:"#fbbf24",Utilities:"#a78bfa",
+                  Debt:"#f87171",Savings:"#34d399",Health:"#38bdf8",Personal:"#f0929c",Other:"#8b9bab"};
+    const rr = Object.keys(m.rollup).map(c=>[c,m.rollup[c],cols[c]||"#8b9bab"]).sort((a,b)=>b[1]-a[1]);
+    barChart($("rollup"), rr, m.spend);
+
+    let html = "", lastCat = null;
+    m.housingLines.forEach(r=>{
+      const cat = r[0]!==lastCat ? r[0] : "";
+      lastCat = r[0];
+      html += `<tr><td class="${cat?"cat":""}">${cat}</td><td style="color:var(--dim)">${r[1]}</td>
+        <td class="n" style="color:var(--accent2)">${money2(r[2])}</td>
+        <td class="n" style="color:var(--dim)">${money(r[2]*12)}</td>
+        <td class="n" style="color:var(--dim)">${pct(m.netMo>0?r[2]/m.netMo:0)}</td>
+        <td style="color:#4a5866;font-size:11px">calc</td></tr>`;
+    });
+    S.living.forEach((r,i)=>{
+      const cat = r[0]!==lastCat ? r[0] : "";
+      lastCat = r[0];
+      const v = +r[2]||0;
+      html += `<tr><td class="${cat?"cat":""}">${cat}</td>
+        <td><input type="text" value="${r[1].replace(/"/g,"&quot;")}" onchange="S.living[${i}][1]=this.value"></td>
+        <td class="n"><input type="number" value="${v}" style="text-align:right" onchange="S.living[${i}][2]=parseFloat(this.value)||0;render()"></td>
+        <td class="n" style="color:var(--dim)">${money(v*12)}</td>
+        <td class="n" style="color:var(--dim)">${pct(m.netMo>0?v/m.netMo:0)}</td>
+        <td><span class="del" onclick="S.living.splice(${i},1);render()">×</span></td></tr>`;
+    });
+    $("lc-tbl").innerHTML = html;
+    $("lc-foot").innerHTML =
+      `<tr><td colspan="2">TOTAL MONTHLY SPENDING</td><td class="n">${money2(m.spend)}</td>
+        <td class="n">${money(m.spend*12)}</td><td class="n">${pct(m.netMo>0?m.spend/m.netMo:0)}</td><td></td></tr>
+       <tr><td colspan="2" style="color:var(--dim);font-weight:400">Net monthly income</td>
+        <td class="n" style="font-weight:400">${money2(m.netMo)}</td><td colspan="3"></td></tr>
+       <tr><td colspan="2">SURPLUS / (DEFICIT)</td>
+        <td class="n" style="color:${m.surplus>=0?"var(--good)":"var(--bad)"}">${money2(m.surplus)}</td>
+        <td class="n" style="color:${m.surplus>=0?"var(--good)":"var(--bad)"}">${money(m.surplus*12)}</td>
+        <td colspan="2"></td></tr>`;
+  }
+
+  /* ---------- WEDDING ---------- */
+  if (active==="wedding"){
+    $("w-ceil").textContent = money(S.wedBudget);
+    $("w-plan").textContent = money(m.wedPlanned);
+    $("w-plan-s").textContent = m.wedOver>0 ? money(m.wedOver)+" OVER budget" : money(-m.wedOver)+" under budget";
+    $("w-plan-s").style.color = m.wedOver>0?"var(--bad)":"var(--good)";
+    $("w-paid").textContent = money(m.wedPaid);
+    $("w-paid-s").textContent = money(m.wedOwed) + " still owed";
+    $("w-save").textContent = money(m.wedMonthlySave);
+    $("w-save-s").textContent = m.wedMonths + " months to go";
+    $("w-save-card").className = "kpi " + (m.wedMonthlySave<=Math.max(0,m.surplus)?"good":"bad");
+
+    $("wed-inputs").innerHTML =
+      field("wedDate","Wedding date","","date") +
+      field("wedBudget","Total budget ceiling","The Knot 2026 avg: $34,200","number") +
+      field("wedFamily","Contributions from family","","number") +
+      field("guests","Guest count","The Knot 2026 avg: 117","number") +
+      `<hr>` +
+      tr("Amount you need to fund", money(m.wedSelf), {bold:true, color:"var(--wed)"}) +
+      tr("Cost per guest (planned)", money(m.perGuest)) +
+      tr("Already paid", money(m.wedPaid)) +
+      tr("Still to save", money(Math.max(0,m.wedSelf-m.wedPaid)), {bold:true});
+
+    const used = S.wedBudget>0 ? m.wedPlanned/S.wedBudget : 0;
+    $("w-bar").style.width = Math.min(100, used*100) + "%";
+    $("w-bar").style.background = used<=0.85?"var(--good)":used<=1?"var(--warn)":"var(--bad)";
+    $("w-bar-txt").innerHTML = `<b>${pct(used,0)}</b> of the ceiling allocated · ${money(m.wedPlanned)} of ${money(S.wedBudget)}`;
+    $("w-var-share").textContent = pct(m.wedHcShare,0);
+
+    const gcounts = [60,80,100,120,150,200];
+    const hcPerGuest = S.guests>0 ? m.wedRows.filter(r=>r.hc).reduce((a,r)=>a+r.basis,0)/S.guests : 0;
+    const fixed = m.wedRows.filter(r=>!r.hc).reduce((a,r)=>a+r.basis,0);
+    barChart($("chart-guest"), gcounts.map(g=>[
+      g+" guests", fixed + hcPerGuest*g, g===S.guests?"#f0929c":"#4d9fff"
+    ]), null);
+
+    $("wed-tbl").innerHTML = m.wedRows.map((r,i)=>`<tr>
+      <td><input type="text" value="${r.cat.replace(/"/g,"&quot;")}" onchange="S.wedding[${i}][0]=this.value"></td>
+      <td><input type="text" value="${(S.wedding[i][8]||"").replace(/"/g,"&quot;")}" placeholder="vendor, notes" onchange="S.wedding[${i}][8]=this.value"></td>
+      <td class="n"><input type="number" value="${r.est}" style="text-align:right" onchange="S.wedding[${i}][1]=parseFloat(this.value)||0;render()"></td>
+      <td class="n"><input type="number" value="${r.contracted||""}" placeholder="—" style="text-align:right" onchange="S.wedding[${i}][2]=parseFloat(this.value)||0;render()"></td>
+      <td class="n"><input type="number" value="${r.paid||""}" placeholder="—" style="text-align:right" onchange="S.wedding[${i}][3]=parseFloat(this.value)||0;render()"></td>
+      <td class="n" style="color:${r.owed>0?"var(--warn)":"var(--good)"}">${money(r.owed)}</td>
+      <td><input type="date" value="${r.due||""}" style="width:130px" onchange="S.wedding[${i}][4]=this.value"></td>
+      <td><select onchange="S.wedding[${i}][5]=this.value;render()" style="width:118px;text-align:left">
+        ${["Not started","Researching","Quoted","Booked","Deposit paid","Paid in full","Cut"].map(o=>
+          `<option ${o===r.status?"selected":""}>${o}</option>`).join("")}</select></td>
+      <td><span class="del" onclick="S.wedding.splice(${i},1);render()">×</span></td></tr>`).join("");
+
+    $("wed-foot").innerHTML = `<tr><td colspan="2">TOTALS</td>
+      <td class="n">${money(m.wedEst)}</td><td class="n">${money(m.wedContracted)}</td>
+      <td class="n">${money(m.wedPaid)}</td><td class="n">${money(m.wedOwed)}</td>
+      <td colspan="3"></td></tr>`;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  if (active==="timeline"){
+    $("sav-inputs").innerHTML =
+      field("balance","Current savings balance","","number") +
+      field("contrib","Monthly savings (pre-purchase)","After closing, the model switches to your actual surplus","number") +
+      field("apy","Savings APY","Keep house/wedding cash liquid, not invested","number",{pct:1,step:0.05,suffix:"%"}) +
+      field("efMonths","Emergency fund target","Months of total spending","number",{step:1}) +
+      field("buyDate","Target purchase date","","date") +
+      field("wedDate","Wedding date","","date") +
+      `<hr><div class="note">Emergency fund target: <b>${money(m.efTarget)}</b> (${S.efMonths} × ${money(m.spend)}/mo)</div>`;
+
+    $("feas-tbl").innerHTML =
+      tr("Lowest balance over 60 months", money(m.minBal), {bold:true, color:m.minBal>=0?"var(--good)":"var(--bad)"}) +
+      tr("Months in shortfall", m.shortfallMonths, {color:m.shortfallMonths?"var(--bad)":"var(--good)"}) +
+      tr("Balance the month before closing", m.balBeforeClose===null?"date out of range":money(m.balBeforeClose)) +
+      tr("Cash needed at close", money(m.cash)) +
+      tr("Surplus / (shortfall) at closing", m.closeSurplus===null?"n/a":money(m.closeSurplus),
+         {bold:true, color:(m.closeSurplus||0)>=0?"var(--good)":"var(--bad)"}) +
+      tr("Required monthly savings for both goals", money(m.requiredMonthly), {bold:true}) +
+      tr("You are saving", money(S.contrib), {color: S.contrib>=m.requiredMonthly?"var(--good)":"var(--bad)"}) +
+      tr("Emergency fund target", money(m.efTarget)) +
+      tr("Emergency fund intact at low point", m.minBal>=m.efTarget?"Yes":"No",
+         {bold:true, color:m.minBal>=m.efTarget?"var(--good)":"var(--bad)"});
+
+    const buyIdx = m.timeline.findIndex(t=>t.hOut>0);
+    const wedIdx = m.timeline.findIndex(t=>t.wOut>0);
+    lineChart($("chart-timeline"),
+      [{pts:m.timeline.map(t=>({y:t.close})), color:"#6ee7b7", fill:true},
+       {pts:m.timeline.map(()=>({y:m.efTarget})), color:"#fbbf24"}],
+      [{i:wedIdx, label:"Wedding", color:"#f0929c"},{i:buyIdx, label:"Close on house", color:"#4d9fff"}],
+      {xfmt:i=>fmtMon(m.timeline[i].d)});
+
+    $("tl-tbl").innerHTML = m.timeline.map(t=>`<tr style="${t.wOut||t.hOut?"background:#1c242e":""}">
+      <td>${t.i}</td><td>${fmtMon(t.d)}</td><td class="n">${money(t.open)}</td>
+      <td class="n" style="color:var(--good)">${money(t.contrib)}</td>
+      <td class="n" style="color:var(--dim)">${money(t.interest)}</td>
+      <td class="n" style="color:${t.wOut?"var(--wed)":"var(--dim)"}">${t.wOut?money(t.wOut):"—"}</td>
+      <td class="n" style="color:${t.hOut?"var(--accent)":"var(--dim)"}">${t.hOut?money(t.hOut):"—"}</td>
+      <td class="n" style="font-weight:600;color:${t.close<0?"var(--bad)":t.close<5000?"var(--warn)":"var(--txt)"}">${money(t.close)}</td>
+      <td style="font-size:11px;color:var(--bad);font-weight:600">${t.close<0?"SHORTFALL":t.close<5000?"low reserve":""}</td>
+      </tr>`).join("");
+  }
+}
+
+function maxPrice(targetFE){
+  // binary search the price whose front-end ratio equals the target
+  let lo=50000, hi=5000000;
+  for (let k=0;k<40;k++){
+    const mid=(lo+hi)/2;
+    if (model({price:mid}).frontEnd > targetFE) hi=mid; else lo=mid;
+  }
+  return Math.round(lo/1000)*1000;
+}
+
+function addLC(){
+  const c = $("lc-new-cat").value.trim() || "Other";
+  const i = $("lc-new-item").value.trim();
+  const a = parseFloat($("lc-new-amt").value)||0;
+  if (!i) return toast("Give the line item a name");
+  S.living.push([c,i,a]);
+  $("lc-new-cat").value=""; $("lc-new-item").value=""; $("lc-new-amt").value="";
+  render();
+}
+function addWed(){
+  const c = $("w-new-cat").value.trim();
+  const e = parseFloat($("w-new-est").value)||0;
+  if (!c) return toast("Give the vendor line a name");
+  S.wedding.push([c, e, 0, 0, "", "Not started", false, 0, ""]);
+  $("w-new-cat").value=""; $("w-new-est").value="";
+  render();
+}
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  setTimeout(()=>t.classList.remove("on"), 2200);
+}
+
+/* ═══════════════════════ SHARE: state <-> URL ═══════════════════════ */
+// Only the delta from BASE is encoded, so an untouched model produces no code at all
+// and a typical edited one produces a short one.
+// For the two big tables, send only the rows that actually differ — otherwise editing
+// one grocery line would drag all 30 living-cost rows into the code.
+function arrDelta(cur, base){
+  if (!Array.isArray(cur)) return null;
+  if (cur.length !== base.length) return { full: cur };   // rows added or deleted
+  const rows = {};
+  for (let i = 0; i < cur.length; i++){
+    if (JSON.stringify(cur[i]) !== JSON.stringify(base[i])) rows[i] = cur[i];
+  }
+  return Object.keys(rows).length ? { rows } : null;
+}
+function deltaState(){
+  const d = {};
+  Object.keys(BASE).forEach(k => {
+    if (Array.isArray(BASE[k])){
+      const ad = arrDelta(S[k], BASE[k]);
+      if (ad) d[k] = ad;
+    } else if (JSON.stringify(S[k]) !== JSON.stringify(BASE[k])){
+      d[k] = S[k];
+    }
+  });
+  return d;
+}
+function b64urlEncode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  for (let i=0; i<bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function b64urlDecode(s){
+  s = String(s).trim().replace(/-/g,"+").replace(/_/g,"/");
+  while (s.length % 4) s += "=";
+  const bin = atob(s);
+  const bytes = new Uint8Array(bin.length);
+  for (let i=0; i<bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+function encodeState(){
+  const d = deltaState();
+  return Object.keys(d).length ? b64urlEncode(JSON.stringify(d)) : "";
+}
+function applyState(obj){
+  const next = JSON.parse(JSON.stringify(BASE));
+  Object.keys(obj || {}).forEach(k => {
+    if (!(k in BASE)) return;                       // ignore unknown keys entirely
+    const v = obj[k];
+    if (Array.isArray(BASE[k])){
+      if (Array.isArray(v)) next[k] = v;            // a full array, as written by "Save to file"
+      else if (v && Array.isArray(v.full)) next[k] = v.full;
+      else if (v && v.rows) Object.keys(v.rows).forEach(i => {
+        const idx = +i;
+        if (Number.isInteger(idx) && idx >= 0 && idx < next[k].length) next[k][idx] = v.rows[i];
+      });
+    } else {
+      next[k] = v;
+    }
+  });
+  // shape guard: the two tables must stay arrays of arrays
+  if (!Array.isArray(next.living) || !Array.isArray(next.wedding)) throw new Error("bad shape");
+  if (next.living.length  && !Array.isArray(next.living[0]))  throw new Error("bad shape");
+  if (next.wedding.length && !Array.isArray(next.wedding[0])) throw new Error("bad shape");
+  S = next;
+}
+function decodeCode(raw){
+  let s = String(raw || "").trim();
+  const hash = s.lastIndexOf("#");
+  if (hash >= 0) s = s.slice(hash + 1);          // accept a whole pasted URL
+  if (!s) throw new Error("empty");
+  return JSON.parse(b64urlDecode(s));
+}
+let hashTimer = null;
+function syncHash(){
+  clearTimeout(hashTimer);
+  hashTimer = setTimeout(() => {
+    const code = encodeState();
+    try {
+      history.replaceState(null, "", code ? "#" + code : location.pathname + location.search);
+    } catch (e) { /* some browsers block replaceState on file:// — harmless, the code still works */ }
+    if (isShareOpen()) fillShare();
+  }, 250);
+}
+function shareURL(){
+  const code = encodeState();
+  return location.href.split("#")[0] + (code ? "#" + code : "");
+}
+function isShareOpen(){ return $("share-overlay").classList.contains("on"); }
+function fillShare(){
+  const code = encodeState();
+  const url = shareURL();
+  $("share-url").value = url;
+  $("share-code").value = code || "(nothing changed from the defaults yet)";
+  $("share-len").textContent = code ? `· ${code.length} characters` : "";
+  $("share-hint").innerHTML = location.protocol === "file:"
+    ? '<span class="bad">This file is open from your hard drive, so the link only works on this ' +
+      'machine.</span> Use the scenario code below to move numbers between devices, or host the ' +
+      'file to make the link work everywhere.'
+    : "Anyone who opens this link sees exactly the numbers on your screen right now.";
+}
+function openShare(){ fillShare(); $("paste-msg").textContent = ""; $("share-overlay").classList.add("on"); }
+function closeShare(){ $("share-overlay").classList.remove("on"); }
+function copyFrom(id){
+  const el = $(id);
+  const txt = el.value;
+  if (!txt || txt.startsWith("(")) return toast("Nothing to copy yet — change something first");
+  const done = () => toast("Copied to clipboard");
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, () => { el.select(); document.execCommand("copy"); done(); });
+  } else { el.select(); document.execCommand("copy"); done(); }
+}
+function applyPasted(){
+  const msg = $("paste-msg");
+  try {
+    applyState(decodeCode($("paste-code").value));
+    render();
+    fillShare();
+    $("paste-code").value = "";
+    msg.className = "note ok";
+    msg.textContent = "Loaded. Every tab now reflects those numbers.";
+    toast("Scenario loaded");
+  } catch (e) {
+    msg.className = "note bad";
+    msg.textContent = "That does not look like a valid scenario code. Paste the whole code or the whole link.";
+  }
+}
+function save(){
+  const blob = new Blob([JSON.stringify(S,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "life-plan-budget-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  toast("Saved — keep this file to reload your numbers");
+}
+function load(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = e => {
+    try{
+      applyState(JSON.parse(e.target.result));
+      render(); toast("Loaded");
+    }catch(err){ toast("Could not read that file"); }
+  };
+  rd.readAsText(f);
+  ev.target.value = "";
+}
+function reset(){
+  if(!confirm("Reset every input back to defaults? Copy your share code or save to file first if you want to keep these numbers.")) return;
+  S = JSON.parse(JSON.stringify(BASE));
+  render(); toast("Reset to defaults");
+}
+
+/* ═══════════════════════ BOOT ═══════════════════════ */
+(function boot(){
+  const h = location.hash.slice(1);
+  if (h){
+    try { applyState(decodeCode(h)); }
+    catch (e){ console.warn("Ignoring an unreadable scenario code in the URL."); }
+  }
+  buildNav();
+  render();
+  if (h) setTimeout(()=>toast("Loaded the scenario from this link"), 400);
+})();
+</script>
+</body>
+</html>
